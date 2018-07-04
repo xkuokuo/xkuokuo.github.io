@@ -4,15 +4,8 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](https://jekyllrb.com/)
+我是阔阔，是一名程序员。我在国内上了四年本科，那时候大学里学的是EE，后来来美国念书工作，才开始学着coding。Master毕业后我来到了Amazon，目前在Amazon西雅图总部AWS Lambda组做软件开发。
 
-You can find the source code for Minima at GitHub:
-[jekyll][jekyll-organization] /
-[minima](https://github.com/jekyll/minima)
+我生在北京，在那里度过了十八年，大学四年离开家去了东北。15年Master毕业后，又从匹兹堡搬到了西雅图，我特别喜欢西雅图，这里不太冷也不太热，一年中九个月在下雨，但我也想回国，和在美国工作的很多程序员一样，内心总是摇摆不定。
 
-You can find the source code for Jekyll at GitHub:
-[jekyll][jekyll-organization] /
-[jekyll](https://github.com/jekyll/jekyll)
-
-
-[jekyll-organization]: https://github.com/jekyll
+空闲的时间我总想学一点儿跟工作或coding无关的事情。一直在学着弹乌克丽丽，如果有一天coding的工作也被取代了，希望我还能去酒吧弹唱，可惜我唱歌不好听。
