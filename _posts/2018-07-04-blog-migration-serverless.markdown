@@ -65,3 +65,5 @@ Cons:
 2. 前端页页面生成使用Jekyll。
 
 ![示意图]({{ "/assets/blog_system_diagram.png" | absolute_url }})
+
+虽然用了AWS API Gateway，AWS Lambda和AWS DynamoDB，但考虑各家云服务商都有类似产品，并且后端API目前只负责流量监测等简单功能，即使遇到特殊情况需要迁移后端API，保存在Github Pages上面的文章不会变。Markdown格式的post也方便以后迁移到其他平台。
