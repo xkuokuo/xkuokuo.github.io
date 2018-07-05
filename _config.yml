@@ -16,7 +16,7 @@
 title: 阔阔的Blog
 email: xinkuo.dev@gmail.com
 description: >- # this means to ignore newlines until "baseurl:"
-  我是阔阔，我是一个程序员。这里是我发牢骚的地方。
+    阔阔的个人主页
 baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://blog.xinkuo.me" # the base hostname & protocol for your site, e.g. http://example.com
 weibo_username: 小k阔阔
