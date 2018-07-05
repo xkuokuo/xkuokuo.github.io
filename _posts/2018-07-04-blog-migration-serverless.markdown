@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "去服务器化的尝试：从Wordpress迁移到Github Pages+ AWS Serverless"
+title:  "去服务器化的尝试：从Wordpress迁移到Github Pages + AWS Serverless"
 date:   2018-07-04 12:13:28 -0700
 excerpt: 记录一下自己把Blog从Wordpress迁移到Serverless架构的尝试。
 categories: Wordpress Blog Serverless

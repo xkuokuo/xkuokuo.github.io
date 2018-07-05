@@ -32,7 +32,11 @@ plugins:
 
 show_excerpts: true
 
+# Post link formatting
 permalink: /post/:title.html
+
+# Google Analytics
+google_analytics: UA-121847857-1
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
