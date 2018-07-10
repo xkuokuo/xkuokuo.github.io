@@ -21,6 +21,8 @@ baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://blog.xinkuo.me" # the base hostname & protocol for your site, e.g. http://example.com
 weibo_username: 小k阔阔
 weibo_userid: "2663109067"
+zhihu_username: 小k阔阔
+zhihu_userid: "xkuokuo"
 linkedin_username: xin-kuo
 github_username:  xkuokuo
 
