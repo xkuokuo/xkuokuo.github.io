@@ -48,4 +48,14 @@ categories: Blog Serverless 无服务器 AWS
 ![示意图]({{ "/assets/what-is-serverless/serverless-event-driven-example.svg" | absolute_url }})
 每当一个用户事件到来，FaaS平台为该事件创造一个单独的处理函数，函数执行完事件处理逻辑后自动退出
 
+## 解构FaaS函数既服务
+各大云计算厂商都相继退出了自己的FaaS产品。最早的FaaS产品是在2014年10月发布的[hook.io](https://hook.io), 今年（2018）加入FaaS的有阿里云的函数计算Compute Function，和腾讯云的无服务器云函数SCF。所有FaaS产品的结构和功能都大同小异，并且都可以和BaaS的API网关服务搭配使用。
+1. 所有FaaS产品的编程模型中，都是用随时可以调用、用完直接退出的函数/代码块，取代了传统的长时间运行的服务器进程。虽然借助一些手段可以用FaaS模拟一个长时间运行的进程（注：在项目中处于节省时间的需要，我曾经尝试过用一个Lambda function运行一个for loop，直到运行时间超过Lambda规定的timeout，随后立即触发第二个Lambda。），但这不是FaaS的编程模型所提倡的。
+2. 不收语言和运行平台限制。虽然各个FaaS产品都有自己优先支持的语言，例如Lambda优先支持直接支持Java/Python/Go/JS等，但实际上完全可以在Lambdas函数运行时开启一个新的进程，安装一个新的Runtime（或者将源代码编译成binary executable），运行不直接支持的语言代码。各个厂商有自己优先直接支持的语言，大多是是出于business的考量。
+3. 代码的部署流程极大简化。由于不再需要自己管理Infrastructure，代码部署简化为代码打包上传。
+4. 无须担心弹性扩容。无论是1000个TPS和1个TPS，对用户而言没有任何区别，无需考虑资源的调度分配。
+5. 支持（异步）事件触发，。
+6. 可以与API网关应用整合，构建Rset API（注：这种情况下API网关实际起到了传统web应用框架中Routing的作用）。
+
+
 （未完待续）
