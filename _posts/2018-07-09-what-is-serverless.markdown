@@ -49,6 +49,7 @@ categories: Blog Serverless 无服务器 AWS
 每当一个用户事件到来，FaaS平台为该事件创造一个单独的处理函数，函数执行完事件处理逻辑后自动退出
 
 ## 解构FaaS函数既服务
+### FaaS的特点 
 各大云计算厂商都相继退出了自己的FaaS产品。最早的FaaS产品是在2014年10月发布的[hook.io](https://hook.io), 今年（2018）加入FaaS的有阿里云的函数计算Compute Function，和腾讯云的无服务器云函数SCF。所有FaaS产品的结构和功能都大同小异，并且都可以和BaaS的API网关服务搭配使用。
 1. 随时调用。所有FaaS产品的编程模型中，都是用随时可以调用、用完直接退出的函数/代码块，取代了传统的长时间运行的服务器进程。虽然借助一些手段可以用FaaS模拟一个长时间运行的进程（注：在项目中处于节省时间的需要，我曾经尝试过用一个Lambda function运行一个for loop，直到运行时间超过Lambda规定的timeout，随后立即触发第二个Lambda。），但这不是FaaS的编程模型所提倡的。
 2. 无状态（Stateless）。Fans掉用完直接退出，对用户而言每一个函数调用之间是没有联系的。如果想要保存计算结果，必须依赖于第三方（数据库，云盘，分布式缓存等）。
@@ -57,5 +58,17 @@ categories: Blog Serverless 无服务器 AWS
 5. 无须担心弹性扩容。无论是1000个TPS和1个TPS，对用户而言没有任何区别，无需考虑资源的调度分配。
 6. 支持异步事件触发。很多应用场景下FaaS在系统中起到胶水的作用，充当多个应用之间信息传递的Adaptor。以Lambda为例，在AWS的网页控制台里，用户可以直接将Lambda和十几种AWS的服务直接连接。用户甚至可以将Lambda部署到CDN节点，通过CDN触发Lambda，在网络边缘节点完成计算（也就是所谓的边缘计算，Edge Computing，此处是一大坑）（TODO：此处插图）
 7. 可以与API网关应用整合，构建Rset API（注：这种情况下API网关实际起到了传统web应用框架中Routing的作用）。
+### 开源实现
+FaaS开源项目主要围绕在FaaS的工具／应用框架，和开源的FaaS平台实现两方面展开。
+对应工具和应用框架，开源社区活跃的项目有：
+* [Serverless Framework](https://serverless.com/)： 一套整合了各个云厂商Serverless产品的工具包，本身提供的Cli相比原声工具更为简单易用。
+* Serverless Application Model [SAM](https://github.com/awslabs/aws-sam-cli)：AWS开源的针对AWS服务的部署构建工具包。
+* [Zappa](https://github.com/Miserlou/Zappa)：给予python的Serverless构建工具
+* [Apex](https://github.com/apex/apex)：创建AWS Lambda应用的工具包
+
+其余的开源项目者着眼于开源的FaaS平台实现：
+* [Apache OpenWhisk](https://github.com/apache/incubator-openwhisk)： Apache的开源FaaS实现，最早由IBM领导，后贡献给开源社区。IBM的FaaS产品[Cloud Function)[https://www.ibm.com/cloud/functions)就是构建在Apache OpenWhisk之上的。
+* [Azure Function](https://github.com/Azure/azure-functions-host)：微软将自家Azure Function的Runtime开源（注：突然想到微软爸爸买下了Github之后，会不会将来贡献更多开源项目）。
+* [OpenFaaS] (https://github.com/openfaas/faas)：目前最火的FasS开源实现。整套项目用Golang写成，配套的测试／监控／工具比较完善。2017年OpenFasS的创建者展示了[如何将OpenFass部署在树莓派集群上](https://blog.alexellis.io/your-serverless-raspberry-pi-cluster/).
 
 （未完待续）
