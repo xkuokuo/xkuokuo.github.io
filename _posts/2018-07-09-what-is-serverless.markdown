@@ -67,8 +67,8 @@ FaaS开源项目主要围绕在FaaS的工具／应用框架，和开源的FaaS�
 * [Apex](https://github.com/apex/apex)：创建AWS Lambda应用的工具包
 
 其余的开源项目者着眼于开源的FaaS平台实现：
-* [Apache OpenWhisk](https://github.com/apache/incubator-openwhisk)： Apache的开源FaaS实现，最早由IBM领导，后贡献给开源社区。IBM的FaaS产品[Cloud Function)[https://www.ibm.com/cloud/functions)就是构建在Apache OpenWhisk之上的。
+* [Apache OpenWhisk](https://github.com/apache/incubator-openwhisk)： Apache的开源FaaS实现，最早由IBM领导，后贡献给开源社区。IBM的FaaS产品[Cloud Function](https://www.ibm.com/cloud/functions)就是构建在Apache OpenWhisk之上的。
 * [Azure Function](https://github.com/Azure/azure-functions-host)：微软将自家Azure Function的Runtime开源（注：突然想到微软爸爸买下了Github之后，会不会将来贡献更多开源项目）。
-* [OpenFaaS] (https://github.com/openfaas/faas)：目前最火的FasS开源实现。整套项目用Golang写成，配套的测试／监控／工具比较完善。2017年OpenFasS的创建者展示了[如何将OpenFass部署在树莓派集群上](https://blog.alexellis.io/your-serverless-raspberry-pi-cluster/).
+* [OpenFaaS](https://github.com/openfaas/faas)：目前最火的FasS开源实现。整套项目用Golang写成，配套的测试／监控／工具比较完善。2017年OpenFasS的创建者展示了[如何将OpenFass部署在树莓派集群上](https://blog.alexellis.io/your-serverless-raspberry-pi-cluster/).
 
 （未完待续）
