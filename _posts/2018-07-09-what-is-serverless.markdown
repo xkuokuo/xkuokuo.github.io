@@ -60,7 +60,9 @@ categories: Blog Serverless 无服务器 AWS
 3. 不受语言和运行平台限制。虽然各个FaaS产品都有自己优先支持的语言，例如Lambda优先支持直接支持Java/Python/Go/JS等，但实际上完全可以在Lambdas函数运行时开启一个新的进程，安装一个新的Runtime（或者将源代码编译成binary executable），运行不直接支持的语言代码。各个厂商有自己优先直接支持的语言，大多是是出于business的考量。
 4. 代码的部署流程极大简化。由于不再需要自己管理Infrastructure，代码部署简化为代码打包上传。
 5. 无须担心弹性扩容。无论是1000个TPS和1个TPS，对用户而言没有任何区别，无需考虑资源的调度分配。
-6. 支持异步事件触发。很多应用场景下FaaS在系统中起到胶水的作用，充当多个应用之间信息传递的Adaptor。以Lambda为例，在AWS的网页控制台里，用户可以直接将Lambda和十几种AWS的服务直接连接。用户甚至可以将Lambda部署到CDN节点，通过CDN触发Lambda，在网络边缘节点完成计算（也就是所谓的边缘计算，Edge Computing，此处是一大坑）（TODO：此处插图）
+6. 支持异步事件触发。很多应用场景下FaaS在系统中起到胶水的作用，充当多个应用之间信息传递的Adaptor。以Lambda为例，在AWS的网页控制台里，用户可以直接将Lambda和十几种AWS的服务直接连接。用户甚至可以将Lambda部署到CDN节点，通过CDN触发Lambda，在网络边缘节点完成计算（也就是所谓的边缘计算，Edge Computing，此处是一大坑）。
+![示意图]({{ "/assets/what-is-serverless/lambda-trigger-event.jpg" | absolute_url }})
+
 7. 可以与API网关应用整合，构建Rset API（注：这种情况下API网关实际起到了传统web应用框架中Routing的作用）。
 
 ### 相关开源项目
