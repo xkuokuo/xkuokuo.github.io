@@ -6,6 +6,9 @@ excerpt: 借Martin Fowler老爷子博客里的文章，整理一下对Serverless
 categories: Blog Serverless 无服务器 AWS
 ---
 
+* TOC
+{:toc}
+
 这段时间自己开始上手尝试完全基于Serverless的服务搭建Web App，碰巧看到Martin Fowler老爷子的博客上po的[一篇文章](https://martinfowler.com/articles/serverless.html)（是老爷子请别人写的），自己也想把对Serverless的看法总结一下，放在blog上当做记录。
 
 ## Serverless无服务器名词的出现
@@ -16,8 +19,9 @@ categories: Blog Serverless 无服务器 AWS
 * 2015年的AWS Re:Invent专门介绍[PlayOnSports](http://www.playonsports.com/)这家公司的客户案例，证明Serverelss架构完全可以应用于生产环境当中。
 * 2016年第一届Serverless Conf在纽约举办
 * 同年AWS推出Serverless的编程架构模型Serverless Architecture Model（SAM）
+* 2017年阿里腾讯相继推出自家的无服务器函数计算云服务。
 
-。。。。。。
+。。。
 
 ## Serverless代表的两种技术趋势
 无服务器（Serverless）其实是两种不同技术趋势的整合
@@ -58,17 +62,51 @@ categories: Blog Serverless 无服务器 AWS
 5. 无须担心弹性扩容。无论是1000个TPS和1个TPS，对用户而言没有任何区别，无需考虑资源的调度分配。
 6. 支持异步事件触发。很多应用场景下FaaS在系统中起到胶水的作用，充当多个应用之间信息传递的Adaptor。以Lambda为例，在AWS的网页控制台里，用户可以直接将Lambda和十几种AWS的服务直接连接。用户甚至可以将Lambda部署到CDN节点，通过CDN触发Lambda，在网络边缘节点完成计算（也就是所谓的边缘计算，Edge Computing，此处是一大坑）（TODO：此处插图）
 7. 可以与API网关应用整合，构建Rset API（注：这种情况下API网关实际起到了传统web应用框架中Routing的作用）。
-### 开源实现
+
+### 相关开源项目
 FaaS开源项目主要围绕在FaaS的工具／应用框架，和开源的FaaS平台实现两方面展开。
 对应工具和应用框架，开源社区活跃的项目有：
 * [Serverless Framework](https://serverless.com/)： 一套整合了各个云厂商Serverless产品的工具包，本身提供的Cli相比原声工具更为简单易用。
 * Serverless Application Model [SAM](https://github.com/awslabs/aws-sam-cli)：AWS开源的针对AWS服务的部署构建工具包。
 * [Zappa](https://github.com/Miserlou/Zappa)：给予python的Serverless构建工具
 * [Apex](https://github.com/apex/apex)：创建AWS Lambda应用的工具包
-
 其余的开源项目者着眼于开源的FaaS平台实现：
 * [Apache OpenWhisk](https://github.com/apache/incubator-openwhisk)： Apache的开源FaaS实现，最早由IBM领导，后贡献给开源社区。IBM的FaaS产品[Cloud Function](https://www.ibm.com/cloud/functions)就是构建在Apache OpenWhisk之上的。
 * [Azure Function](https://github.com/Azure/azure-functions-host)：微软将自家Azure Function的Runtime开源（注：突然想到微软爸爸买下了Github之后，会不会将来贡献更多开源项目）。
 * [OpenFaaS](https://github.com/openfaas/faas)：目前最火的FasS开源实现。整套项目用Golang写成，配套的测试／监控／工具比较完善。2017年OpenFasS的创建者展示了[如何将OpenFass部署在树莓派集群上](https://blog.alexellis.io/your-serverless-raspberry-pi-cluster/).
 
-（未完待续）
+## 和PaaS平台的对比
+在FaaS出现之前，以Heroku为代表的PaaS平台也可以完全托管一个网站应用，开发者完全无需担心部署和维护。
+
+然而在PaaS的编程模型中，服务器的概念还是存在的。以Heroku为例，开发者明确知道自己上传的web应用被托管在一个虚拟服务器中（Dyno），并常驻内存。虽然Heroku也会将不常运行的应用移出内存（超过半小时没有请求，Dyno就会进入休眠状态，直到下一个请求到来，容器平台才会重新加载应用），但PaaS平台这样做的出发点在于节省资源，本质上PaaS的编程模型依旧是基于（虚拟）服务器的，只是凭借工具和业务模式的创新，大大简化的代码的部署和运维。
+
+进一步考虑，如果一个PaaS平台的性能足够高，可以做到在几十毫秒之内启动应用进程，出于进一步节省资源的考虑，一个很自然的想法就是在请求执行完毕后直接退出应用，等到下一次请求到来时，再重新启动。应用退出后，内存中的状态无法保存，为了完成相应的业务逻辑，程序运行的状态被保存在第三方服务中，而应用程序本身的代码复杂性也就进一步降低，慢慢地从一个完整的应用简化为一个无状态的函数。**随着容器技术的成熟，从PaaS到FaaS技术的演进，是自然而然水到渠成的。**
+
+此处放上一个对Serverless的神吐槽。。。
+![示意图]({{ "/assets/what-is-serverless/pass_faas_tweet.jpg" | absolute_url }})
+
+一种可能的情况是，虽然现如今PaaS平台和FaaS平台之间存在种种区别，二者的的界限会变得模糊。例如AWS推出的[aws-serverless-express](https://github.com/awslabs/aws-serverless-express)项目，就可以非常简单粗暴的将一整个Express Node.js应用包裹在一个Lambda Function中。。。。。。
+
+## Serverelss的优点
+1. 运维成本低。应用开发者不用担心应用的吞吐量、并发请求数等对应用带来的影响，全部交由FaaS平台解决。
+2. BaaS：进一步简化开发流程，降低开发成本。以数据库服务为代表的BaaS服务使得后端开发者可以将更多精力投入在后端业务逻辑上。
+3. FaaS：系统扩容成本降低。FaaS构建的后端应用可以实现真正意义上的弹性扩容，成本计算精确到每一个请求。当应用没有或者只有很少请求时，用户不用花一分钱。
+4. 简化软件部署流程。相比传统应用，不再需要启动脚本和守护进程，直接上传编译打包打包好的代码（甚至直接上擦混源代码文件）。
+5. 更环保。大大减少冗余服务器造成的资源浪费=）
+
+## Serverelss的缺点
+1. 过度依赖于云服务提供商。云服务厂商的FaaS产品并没有统一的接口和规范，虽然有像[Serverless Framework](https://serverless.com/)这样的项目试图构建一套跨平台的Serverless应用框架，但用户在平台之间的迁移依然会更为困难。举例来说，AWS Serverless Architecture Model使用简化的AWS Cloudformation格式（JSON）来配置相应资源，配置文件是无法跨平台通用的。
+2. 多租户问题（Multitenancy problem）。对几乎所有Serverless产品来说，处于优化资源的目的，在后台实现中，会将多个用户的资源放在一台云主机中，资源的分配调度会直接影响服务的性能。假如一台服务器中的某一个用户占用了过多计算资源，可能会对其他用户的性能产生影响。同样带来的安全问题也需要
+3. 无状态计算模型。这是FaaS不可回避的问题，虽然FaaS函数本身的逻辑得到简化，但为了实现完整的业务逻辑，一些情况下势必需要将状态存储到第三方，无论是数据库，还是第三方的存储服务，每一次FaaS请求函数都需要都重新建立一次（数据库）连接，而无法像传统应用一样通过数据库连接池改善性能，在高负载的情况下，大量新的并发连接的创建也会对数据库性能造成影响。
+
+## Serverelss还需解决/正在解决的问题
+这一部分没有归类到缺点，因为相信随着技术成熟，会有更好的解决方案。
+1. 冷启动。以Lambda为例（[参见这篇AWS Blog](https://aws.amazon.com/blogs/compute/container-reuse-in-lambda/)），每一个Lambda函数运行在单独的容器中，虽然函数运行完会自动退出，然而处于优化资源利用的需要运行函数的容器还会保留，等待下一个请求。如果一个Lambda函数很久没有运行，运行该函数的容器会被销毁，下一次触发需要创建新的容器。根据语言和资源配置的不同，用户可能观察到1秒-10秒不等的冷启动时延。
+2. 本地测试。除了单个函数的单元测试，作为开发者也希望可以像传统web应用一样，在本地启动测试服务器，进行端到端的功能测试。[AWS Sam Cli](https://docs.aws.amazon.com/zh_cn/lambda/latest/dg/test-sam-cli.html)提供了一套基于Docker的解决方案，通过在本地启动一个Docker容器，运行Lambda function。
+
+## 总结
+可算写完了。Martin Folwer老爷子的很多文章都不错，这篇请别人写的尤其长。。。过程中查了很多资料，要学习的东西还是太多。
+
+无服务器未来云计算发展的趋势。虽然不可否认无服务器架构也有其局限性，Serverless不应该只被定义为将传统后端应用打包成服务出售，应该意识到Serverless架构正在改变软件开发的流程，和现有的编程框架/范式。Serverless/FaaS和IoT的结合也值得关注，例如AWS Lambda已经支持将Lambda函数部署到边缘CDN节点，直接在最靠近用户的网络边缘进行计算（Edge Computing），而AWS Greengrass项目，则直接允许IoT设备在本地运行Lambda函数。
+
+这礼拜不再写了，后面几天会接着玩儿Lambda，动手建几个App，体会一下“作为Lambda用户是怎样一种体验”。
