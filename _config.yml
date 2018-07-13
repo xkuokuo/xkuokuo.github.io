@@ -26,7 +26,7 @@ zhihu_userid: "xkuokuo"
 linkedin_username: xin-kuo
 github_username:  xkuokuo
 
-about_author: "我是阔阔。现在住在西雅图，目前在Amazon Web Service做AWS Lambda的软件开发。我喜欢解决问题，喜欢看小说，也喜欢弹Ukulele。也欢迎访问我的<a href=\"https://xinkuo.me\">个人主页</a>。"
+about_author: "我是阔阔。我住在一年三季都下雨的西雅图，目前在Amazon Web Service做AWS Lambda的软件开发。我喜欢解决问题，喜欢看小说，喜欢弹Ukulele。也欢迎访问我的<a href=\"https://xinkuo.me\">个人主页</a>。"
 
 # Build settings
 markdown: kramdown
