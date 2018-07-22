@@ -36,20 +36,20 @@ OpenWhisk中，代码是基于**事件（Event）**触发的。事件产生于**
 下图为OpenWhisk的核心模块（图片来自这篇[博客](https://medium.com/openwhisk/uncovering-the-magic-how-serverless-platforms-really-work-3cb127b05f71)）。可以看到 OpenWhisk 本身完全构建与开源技术栈之上的（注：不由感叹一下，OpenWhisk 能最大程度的利用已有的开源组件，构建起一个完整的 FaaS 系统，真的很考验技术团队的**工程能力**）。图中的序号代表一个函数从触发到运行结束的顺序过程。
 ![示意图]({{ "/assets/apache-openwhisk/openwhisk-internal-implementation.png" | absolute_url }})
 
-### 第一步：面向用户的 REST API （Nginx)
+### 1 面向用户的 REST API （Nginx)
 OpenWhisk 的核心系统通过 Rest API 接收函数触发和函数的CRUD请求。例如一个函数触发的 POST 请求格式如下
 ···
 POST /api/v1/namespaces/$userNamespace/actions/myAction
 ···
 此处的 nginx 服务器主要用于接收 HTTPS 请求（SSL termination)，并将处理后的 HTTP 请求直接转发给控制器（Controller）
 
-### 真正进入系统：控制器（Controller）
+### 2 真正进入系统：控制器（Controller）
 控制器是真正开始处理请求的地方。控制器是用 Scala 语言实现的，并提供了对应的REST API，接收 Nginx 转发的请求。Controller 分析请求内容，进行下一步处理。
 
-### CouchDB：身份验证和鉴权
+### 3 CouchDB：身份验证和鉴权
 继续用上一步用户发出的函数触发 POST 请求为例，控制器首先需要验证用户的身份和权限。用户的身份信息（credentials）保存在 CouchDB 的用户身份数据库（subjects database）中。验证无误后，控制器进行下一步处理。
 
-### 还是 CouchDB：得到对应的Action的代码及配置
+### 4 还是 CouchDB：得到对应的Action的代码及配置
 确认用户的身份后，控制器需要从 CouchDB 中读取将要被触发的函数（OpenWhisk 将要执行的代码片段抽象成为**Action**，为了简便，此处直接称之为函数）。函数对应的数据存储在 CouchDB 的 whisk 数据库，主要包含要被执行的代码、默认参数、被执行代码的权限、及CPU/内存使用限制。
 
 ### 5 Consul 和负载均衡 
@@ -75,7 +75,7 @@ Kafka 充当了 Controller 和 Invoker 之间的缓存，当后端 Invoker 负�
 
 设想最简单的一种情况，假设一个用户 Action 第一次被触发：
 1. Invoker 接收到请求，创建一个新的 Docker 容器 （运行 docker run 命令），同时获取容器的 IP 地址 （docker inspect 命令）
-2. 容器初始化。包括对应函数语言运行时的加载安装
+2. 容器初始化。对一些语言来说这一步会涉及用户代码的编译。
 3. 运行函数代码
 4. 在 Couch DB 中保存运行结果（会在下一部分解释）
 
