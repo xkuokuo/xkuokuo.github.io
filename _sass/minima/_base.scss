@@ -43,7 +43,11 @@ ul, ol, dl, figure,
  * `main` element
  */
 main {
-  display: block; /* Default value of `display` of `main` element is 'inline' in IE 11. */
+  display: flex; /* Default value of `display` of `main` element is 'inline' in IE 11. */
+  flex-direction: row;
+  @include media-query($on-laptop) {
+    flex-direction: column;
+  }
 }
 
 
@@ -188,26 +192,33 @@ pre {
   }
 }
 
-.middle-column {
+main .middle-column {
   display: inline-block;
-  width: 50%;
+  margin: auto;
+  max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit} * 2));
+  max-width:         calc(#{$content-width} - (#{$spacing-unit} * 2));
   @include media-query($on-laptop) {
-    width: 60%;
-  }
-  @include media-query($on-palm) {
-    width: 100%;
+    max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit}));
+    max-width:         calc(#{$content-width} - (#{$spacing-unit}));
+    padding-right: $spacing-unit / 2;
+    padding-left: $spacing-unit / 2;
   }
 }
-.side-column {
-  width: 25%;
-  height: 100%;
+main .side-column {
+  flex: 1;
   display: inline-block;
   vertical-align: top;
+  min-width: 200px;
+  padding: $spacing-unit;
+  border-left: 1px solid $grey-color-light;
   @include media-query($on-laptop) {
-    width: 20%;
-  }
-  @include media-query($on-palm) {
+    max-width: -webkit-calc(#{$content-width} - (#{$spacing-unit}));
+    max-width:         calc(#{$content-width} - (#{$spacing-unit}));
+    margin: auto;
     width: 100%;
+    padding: $spacing-unit / 2;
+    border-left: 0px solid $grey-color-light;
+    border-top: 1px solid $grey-color-light;
   }
 }
 
@@ -216,14 +227,14 @@ pre {
  * About Author
  */
 .about-author {
-  border-left: 1px solid $grey-color-light;
-  padding: 16px;
   text-align: justify;
   max-width: 300px;
-  @include media-query($on-palm) {
-    border-left: 0px solid $grey-color-light;
-    border-top: 1px solid $grey-color-light;
+  padding-right: $spacing-unit;
+  padding-left: $spacing-unit;
+  @include media-query($on-laptop) {
     width: 100%;
+    padding-right: $spacing-unit / 2;
+    padding-left: $spacing-unit / 2;
   }
 
   h3 {
