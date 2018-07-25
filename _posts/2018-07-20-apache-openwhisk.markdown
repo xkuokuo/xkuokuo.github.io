@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  聊一聊开源Serverless平台Apache OpenWhisk
+title:  聊一聊开源 Serverless 平台 Apache OpenWhisk
 date:   2018-07-20 01:01:28 -0700
 excerpt: Apache OpenWhisk 是 IBM 开源的 FaaS 平台。这篇介绍一下 OpenWhisk 的系统架构，也梳理一下自己对 OpenWhisk 的理解。
 categories: Blog Serverless 无服务器 OpenWhisk
@@ -11,7 +11,7 @@ categories: Blog Serverless 无服务器 OpenWhisk
 
 这段时间开始有意识的去看一些开源的 FaaS 框架的实现，原因一半是出于好玩儿，另一方面也是想通过对比 AWS Lambda，加深自己对工作中碰到的问题的理解。上个礼拜试着上手 OpenFaaS，搞了一块[树莓派](https://www.weibo.com/2663109067/GpS6o8haD)，在上面运行了一个 OpenFaaS 的 cluster。这礼拜偶然看到一篇关于Apache OpenWhisk的[博文](https://medium.com/openwhisk/uncovering-the-magic-how-serverless-platforms-really-work-3cb127b05f71)，觉得讲的非常好，借着那篇文章，搜集了一些资料，整理整理自己的想法。
 
-## Apache OpenWhisk简介
+## Apache OpenWhisk 简介
 OpenWhisk 是属于 Apache 基金会的开源 FaaS 计算平台[官网链接](https://openwhisk.apache.org/), 由 IBM 在2016年公布并贡献给开源社区（[github页面](https://github.com/apache/incubator-openwhisk)），IBM Cloud 本身也提供完全托管的 OpenWhisk FaaS服务 [IBM Cloud Function](https://console.bluemix.net/openwhisk/)。从业务逻辑上看，OpenWhisk 同 AWS Lambda 一样，为用户提供基于事件驱动的无状态的计算模型，并直接支持多种编程语言（理论上可以将任何语言的 runtime 打包上传，间接调用）。
 
 ![示意图]({{ "/assets/apache-openwhisk/illustration-openwhisk-architecture.svg" | absolute_url }})
@@ -79,7 +79,7 @@ Kafka 充当了 Controller 和 Invoker 之间的缓存，当后端 Invoker 负�
 3. 运行函数代码
 4. 在 Couch DB 中保存运行结果（会在下一部分解释）
 
-### 8 CouchDB保存运行结果
+### 8 CouchDB 保存运行结果
 触发器执行结果最终会被保存在 CouchDB 中的 whisk 数据库里。保存格式如下：
 ```
 {
